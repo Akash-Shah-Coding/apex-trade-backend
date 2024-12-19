@@ -1,0 +1,42 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Apply to all scrollbars */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-bg);
+  }
+  
+  *::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  
+  *::-webkit-scrollbar-thumb {
+    background-color: var(--scrollbar-thumb);
+    border-radius: 9999px;
+  }
+  
+  *::-webkit-scrollbar-track {
+    background-color: var(--scrollbar-bg);
+  }
+  
+  /* Light mode */
+  :root {
+    --scrollbar-thumb: #cbd5e1; /* Light gray */
+    --scrollbar-bg: #f1f5f9;    /* Slightly darker gray */
+  }
+  
+  /* Dark mode */
+  .dark {
+    --scrollbar-thumb: #4b5563; /* Darker gray */
+    --scrollbar-bg: #1f2937;    /* Very dark gray */
+  }
+  
+  .truncate {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  

@@ -1,0 +1,12 @@
+/* tailwind.css or your main CSS file */
+.myeditor-container {
+    @apply rounded-lg text-lg dark:text-white text-black;
+}
+
+.myeditor .ql-container {
+    @apply rounded-lg;
+}
+
+.myeditor .ql-editor {
+    @apply text-lg dark:text-white text-black;
+}
