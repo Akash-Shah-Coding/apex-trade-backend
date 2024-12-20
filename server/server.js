@@ -54,6 +54,10 @@ app.get('/redirect', (req, res) => {
     // Respond with the api_key, request_token, and api_secret
     res.json({ api_key: apiKey, request_token: requestToken, api_secret: apiSecret, checksum: checksum });
 })
+// Home -test 
+app.get('/', (req, res) => {
+    res.send('Working... Hello backend')
+})
 
 app.listen(PORT, async () => {
     console.log(`Server running on port ${PORT}`);
