@@ -41,7 +41,7 @@
 
 
 const { Pool } = require('pg');
-require('dotenv').config();  
+require('dotenv').config();
 
 // Create a new PostgreSQL pool
 const pool = new Pool({
