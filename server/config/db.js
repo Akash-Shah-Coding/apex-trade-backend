@@ -45,7 +45,7 @@ require('dotenv').config();
 
 // Create a new PostgreSQL pool
 const pool = new Pool({
-  connectionString: process.env.SUPABASE_CONNECTION_STRING, // Single connection string for simplicity
+  connectionString: 'postgresql://postgres.zynsnhjobzvbaayxugit:!QgHDNxQVvCfxH9@aws-0-ap-south-1.pooler.supabase.com:5432/postgres', // Single connection string for simplicity
   ssl: {
     rejectUnauthorized: false, // Required for Supabase
   },
