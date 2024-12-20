@@ -1,9 +1,7 @@
 import axios from 'axios';
 
 const API_URL = import.meta.env.VITE_BACKEND_API_URL;  // Testing local
-console.log('====================================');
-console.log(API_URL);
-console.log('====================================');
+
 // authService.js
 export const login = async (credentials) => {
     const response = await fetch(`${API_URL}/user/login`, {

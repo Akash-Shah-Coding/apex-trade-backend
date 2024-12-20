@@ -18,7 +18,7 @@ const crypto = require('crypto')
 
 // Enable CORS for a specific origin 
 app.use(cors({
-    origin: ['http://localhost:5173', 'https://apeex-trade.netlify.app'], 
+    origin: ['http://localhost:5173', 'https://apextrader.netlify.app/'], 
     credentials: true
 })); 
 
