@@ -7,9 +7,7 @@ export const login = async (credentials) => {
   try {
     const response = await axios.post(`${API_URL}/user/login`, credentials, {
       withCredentials: true,
-      headers: {
-        'Content-Type': 'application/json'
-      }
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }
     });
     return response.data; // Return the response data
   } catch (error) {
@@ -22,9 +20,7 @@ export const fetchUser = async () => {
   try {
     const response = await axios.get(`${API_URL}/user/me`, {
       withCredentials: true,
-      headers: {
-        'Content-Type': 'application/json'
-      }
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }
     });
     return response.data; // Return the response data
   } catch (error) {
