@@ -18,9 +18,11 @@ const crypto = require('crypto')
 
 // Enable CORS for a specific origin 
 app.use(cors({
-    origin: ['http://localhost:5173', 'https://apextrader.netlify.app/'], 
-    credentials: true
+    credentials: true,
+    origin: ['http://localhost:5173', 'https://apextrader.netlify.app'], 
 })); 
+
+app.set('trust proxy',1);
 
 app.use(cookieParser());
 

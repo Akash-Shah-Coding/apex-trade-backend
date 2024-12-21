@@ -103,8 +103,10 @@ exports.login = async (req, res) => {
     // Set the token as an HttpOnly cookie 
     res.cookie('token', token,
       {
-        httpOnly: true, secure: process.env.NODE_ENV === 'production', // Use secure cookies in production 
-        maxAge: 24 * 60 * 60 * 1000  // 1 day
+        httpOnly: true,
+        secure: true,
+        maxAge: 24 * 60 * 60 * 1000,  // 1 day
+        sameSite : 'none'
       });
     res.status(200).json({ token, user });
   } catch (err) {
@@ -113,7 +115,7 @@ exports.login = async (req, res) => {
 };
 
 // Check Auth 
-exports.checkUser = async (req,res)=>{
+exports.checkUser = async (req, res) => {
   const token = req.cookies.token; // Get the token from the HttpOnly cookie
 
   if (!token) {
