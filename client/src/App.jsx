@@ -3,6 +3,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { Toaster } from "react-hot-toast";
 import Layout from "./layout/Layout";
+import Loader from "./common/Loader";
 
 import {
   homeRoutes,
@@ -18,6 +19,12 @@ import "./css/style.css";
 // Protected Route Component
 const ProtectedRoute = ({ element: Element, ...rest }) => {
   const loggedInUser = useSelector((state) => state.auth.user);
+  const isLoading = useSelector((state) => state.auth.isLoading);
+
+  if (isLoading) {
+    return <Loader />;
+  }
+
   return loggedInUser ? (
     <Layout>
       <Element {...rest} />
@@ -29,50 +36,23 @@ const ProtectedRoute = ({ element: Element, ...rest }) => {
 
 const App = () => {
   return (
-    <>
-      <Toaster />
+    <div className="app-container">
+      <Toaster position="top-right" />
       <Routes>
-        {homeRoutes.map(({ path, component: Component }) => (
-          <Route
-            key={path}
-            path={path}
-            element={<ProtectedRoute element={Component} />}
-          />
-        ))}
-        {viewRoutes.map(({ path, component: Component }) => (
-          <Route
-            key={path}
-            path={path}
-            element={<ProtectedRoute element={Component} />}
-          />
-        ))}
-        {MailboxRoute.map(({ path, component: Component }) => (
-          <Route
-            key={path}
-            path={path}
-            element={<ProtectedRoute element={Component} />}
-          />
-        ))}
-        {navigatorRoutes.map(({ path, component: Component }) => (
-          <Route
-            key={path}
-            path={path}
-            element={<ProtectedRoute element={Component} />}
-          />
-        ))}
-        {administrationRoutes.map(({ path, component: Component }) => (
-          <Route
-            key={path}
-            path={path}
-            element={<ProtectedRoute element={Component} />}
-          />
-        ))}
-
+        {[...homeRoutes, ...viewRoutes, ...MailboxRoute, ...navigatorRoutes, ...administrationRoutes].map(
+          ({ path, component: Component }) => (
+            <Route
+              key={path}
+              path={path}
+              element={<ProtectedRoute element={Component} />}
+            />
+          )
+        )}
         {publicRoutes.map(({ path, component: Component }) => (
           <Route key={path} path={path} element={<Component />} />
         ))}
       </Routes>
-    </>
+    </div>
   );
 };
 

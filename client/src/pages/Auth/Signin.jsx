@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleLeft, faEnvelope, faUnlockAlt } from "@fortawesome/free-solid-svg-icons";
 import { faFacebookF, faGithub, faTwitter } from "@fortawesome/free-brands-svg-icons";
 import { Link, useNavigate } from 'react-router-dom';
-import { toast } from 'react-hot-toast';
 import Loader from "../../common/Loader";
 import { useAuth } from "../../hooks/useAuth";
 
@@ -11,17 +11,23 @@ import { useAuth } from "../../hooks/useAuth";
 const SignIn = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const { login, isAuthLoading } = useAuth();
+    const { login, user, isAuthLoading } = useAuth();
+    const isLoading = useSelector((state) => state.auth.isLoading);
+    const navigate = useNavigate();
 
-    // Loader 
-    if (isAuthLoading) {
-        return <Loader />;
+    // Redirect logged-in users to the home page
+    if (user) {
+        navigate("/");
     }
 
     const handleSignIn = async (e) => {
         e.preventDefault();
-            login({ email, password }); 
+        login({ email, password });
     };
+
+    if (isLoading || isAuthLoading) {
+        return <Loader />; // Show loader while logging in
+    }
 
     return (
         <main className="min-h-screen flex items-center justify-center bg-gray-900">
