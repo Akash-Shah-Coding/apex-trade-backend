@@ -2,35 +2,34 @@ import axios from 'axios';
 
 const API_URL = import.meta.env.VITE_BACKEND_API_URL;  // Testing local
 
-// authService.js
+// Login Function
 export const login = async (credentials) => {
-    const response = await fetch(`${API_URL}/user/login`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(credentials),
-        credentials: 'include'
+  try {
+    const response = await axios.post(`${API_URL}/user/login`, credentials, {
+      withCredentials: true,
+      headers: {
+        'Content-Type': 'application/json'
+      }
     });
-
-    if (!response.ok) {
-        throw new Error('Login failed');
-    }
-
-    return response.json(); 
+    return response.data; // Return the response data
+  } catch (error) {
+    throw new Error('Login failed: ' + error.response?.data?.message || error.message);
+  }
 };
 
-
+// Fetch User Function
 export const fetchUser = async () => {
-    const response = await fetch(`${API_URL}/user/me`, {
-        method: 'GET',
-        credentials: 'include' 
+  try {
+    const response = await axios.get(`${API_URL}/user/me`, {
+      withCredentials: true,
+      headers: {
+        'Content-Type': 'application/json'
+      }
     });
-
-    if (!response.ok) {
-        throw new Error('Failed to fetch user');
-    }
-    return response.json();
+    return response.data; // Return the response data
+  } catch (error) {
+    throw new Error('Failed to fetch user: ' + error.response?.data?.message || error.message);
+  }
 };
 
 // export const logout = async () => {
