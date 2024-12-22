@@ -8,21 +8,20 @@ const http = require('http');
 const PORT = process.env.PORT || 5000;
 const db = require('./config/db');
 const quoteRoutesV1 = require('./routes/v1/index');
-const { emitLiveNews } = require('./services/FinnhubServices')
 const server = http.createServer(app);
 const io = new Server(server);
-const crypto = require('crypto')
-
-// Start emitting live news
-// emitLiveNews(io);
 
 // Enable CORS for a specific origin 
-app.use(cors({
-    credentials: true,
-    origin: ['http://localhost:5173', 'https://apextrader.netlify.app'], 
-})); 
+const isProduction = process.env.NODE_ENV === 'production';
 
-app.set('trust proxy',1);
+const corsOptions = {
+    credentials: true,
+    origin: isProduction ? 'https://apextrader.netlify.app' : 'http://localhost:5173'
+};
+
+app.use(cors(corsOptions));
+
+app.set('trust proxy', 1);
 
 app.use(cookieParser());
 
@@ -41,22 +40,7 @@ io.on('connection', (socket) => {
     });
 });
 
-// io.on('liveNews', (newNews) => {
-//     console.log("news", newNews);
-// });
-
-const apiKey = '3qa844qw9w2rziww';
-const apiSecret = 'f8ie6sxwyjjd20tuzfqqziql923kd0dk';
-
-app.get('/redirect', (req, res) => {
-    const requestToken = req.query.request_token;
-    if (!requestToken) { return res.status(400).json({ error: 'request_token is required' }); }
-    // Generate checksum 
-    const data = apiKey + requestToken + apiSecret; const checksum = crypto.createHash('sha256').update(data).digest('hex');
-    // Respond with the api_key, request_token, and api_secret
-    res.json({ api_key: apiKey, request_token: requestToken, api_secret: apiSecret, checksum: checksum });
-})
-// Home -test 
+// Home 
 app.get('/', (req, res) => {
     res.send('Working... Hello backend')
 })

@@ -98,15 +98,15 @@ exports.login = async (req, res) => {
 
     // Create JWT token
     const token = jwt.sign({ id: user.id, role_id: user.role_id }, process.env.JWT_SECRET || 'AkashShah', {
-      expiresIn: '1d',  // Token expires in 1 day
+      expiresIn: '28h'
     });
     // Set the token as an HttpOnly cookie 
     res.cookie('token', token,
       {
         httpOnly: true,
         secure: true,
-        maxAge: 24 * 60 * 60 * 1000,  // 1 day
-        sameSite : 'none'
+        maxAge: 1000 * 60 * 60 * 28,  //28 hours
+        sameSite: 'none'
       });
     res.status(200).json({ token, user });
   } catch (err) {
@@ -116,7 +116,7 @@ exports.login = async (req, res) => {
 
 // Check Auth 
 exports.checkUser = async (req, res) => {
-  const token = req.cookies.token; // Get the token from the HttpOnly cookie
+  const token = req.cookies.token;
 
   if (!token) {
     return res.status(401).json({ message: 'Not authenticated' });
