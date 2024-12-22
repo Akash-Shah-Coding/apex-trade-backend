@@ -15,6 +15,7 @@ import {
 } from "./routeConfig";
 import "./app.css";
 import "./css/style.css";
+import NotFound from "./pages/NotFound";
 
 // Protected Route Component
 const ProtectedRoute = ({ element: Element, ...rest }) => {
@@ -51,6 +52,8 @@ const App = () => {
         {publicRoutes.map(({ path, component: Component }) => (
           <Route key={path} path={path} element={<Component />} />
         ))}
+        {/* 404 Route */}
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </div>
   );

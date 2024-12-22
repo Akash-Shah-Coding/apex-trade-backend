@@ -1,5 +1,4 @@
 import axios from 'axios';
-
 const API_URL = import.meta.env.VITE_BACKEND_API_URL;  // Testing local
 
 // Login Function
@@ -9,7 +8,7 @@ export const login = async (credentials) => {
       withCredentials: true,
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }
     });
-    return response.data; // Return the response data
+    return response.data; 
   } catch (error) {
     throw new Error('Login failed: ' + error.response?.data?.message || error.message);
   }
@@ -22,7 +21,7 @@ export const fetchUser = async () => {
       withCredentials: true,
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }
     });
-    return response.data; // Return the response data
+    return response.data; 
   } catch (error) {
     throw new Error('Failed to fetch user: ' + error.response?.data?.message || error.message);
   }

@@ -11,13 +11,15 @@ import { useAuth } from "../../hooks/useAuth";
 const SignIn = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const { login, user, isAuthLoading } = useAuth();
+    const { login, isAuthLoading } = useAuth();
     const isLoading = useSelector((state) => state.auth.isLoading);
+    const user = useSelector((state) => state.auth.user);
     const navigate = useNavigate();
 
     // Redirect logged-in users to the home page
     if (user) {
         navigate("/");
+        return null;
     }
 
     const handleSignIn = async (e) => {
